@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jjq.mapper.TagMapper">
+
+    <insert id="insertTag">
+      INSERT INTO tag (name, a_id) VALUES (#{param1}, #{param2})
+    </insert>
+
+    <delete id="deleteTag">
+      DELETE T FROM tag AS T, article AS A, category AS C WHERE T.a_id = A.id AND A.c_id = C.id AND C.u_id = #{param1} AND T.name = #{param2}
+    </delete>
+
+    <delete id="deleteTagByArticleId">
+      DELETE FROM tag WHERE a_id = #{articleId}
+    </delete>
+
+    <select id="selectAllTag" resultType="com.jjq.bean.Tag">
+      SELECT T.id, T.name, COUNT(*) articleCount FROM tag AS T, article AS A, category AS C WHERE T.a_id = A.id AND A.c_id = C.id AND C.u_id = #{userId} GROUP BY C.u_id, T.name
+    </select>
+
+    <select id="selectTagsByArticleId" resultType="com.jjq.bean.Tag">
+      SELECT id, name, COUNT(*) FROM tag WHERE a_id = #{articleId} GROUP BY name
+    </select>
+</mapper>

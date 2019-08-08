@@ -1,0 +1,44 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+#header {
+    box-shadow: 0px 1px 5px lightgray;
+}
+
+#header > img {
+    margin: 20px 200px 20px 200px;
+}
+
+.bar {
+    float: right;
+    line-height: 95px;
+    font-size: 20px;
+}
+
+.bar > a {
+    margin-right: 40px;
+    float: right;
+}
+
+#search {
+    width: 300px;
+    height: 30px;
+    position: absolute;
+    visibility: hidden;
+    right: 230px;
+    top: 35px;
+    z-index: 1;
+}
+
+i {
+    margin-top: 38px;
+    margin-right: 200px;
+    position: relative;
+    z-index: 2;
+}
+
+a {
+    text-decoration: none;
+}

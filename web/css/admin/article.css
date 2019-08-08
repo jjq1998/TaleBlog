@@ -1,0 +1,75 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+ul {
+    list-style: none;
+    width: 300px;
+    font-weight: bold;
+    font-size: 20px;
+    color: rgb(167, 177, 194);
+}
+
+li {
+    padding-left: 30px;
+    height: 70px;
+    line-height: 70px;
+}
+
+li:hover {
+    background-color: rgb(39, 44, 53);
+}
+
+a {
+    text-decoration: none;
+    color: rgb(167, 177, 194);
+}
+
+a:visited {
+    color: rgb(167, 177, 194);
+}
+
+table, table tr th, table tr td {
+    border: 2px solid #dddddd;
+}
+
+table {
+    border-color: #dddddd;
+    text-align: center;
+    border-collapse: collapse;
+    font-weight: bold;
+    color: #666666;
+    position: relative;
+    left: 50px;
+}
+
+th{
+    height: 30px;
+}
+
+td{
+    height: 40px;
+}
+
+.operate
+{
+    width: 80px;
+    height: 30px;
+    border: 0px;
+    font-weight: bold;
+    color: white;
+}
+
+#foot{
+    float: right;
+    margin-right: 56px;
+    margin-top: 20px;
+}
+
+.footer{
+    width: 50px;
+    height: 30px;
+    border: 0px;
+}
+

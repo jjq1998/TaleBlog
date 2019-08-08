@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jjq.mapper.CategoryMapper">
+
+    <insert id="insertCategory">
+      INSERT INTO category (name, u_id) VALUES (#{param2}, #{param1})
+    </insert>
+
+    <delete id="deleteCategory">
+      DELETE FROM category WHERE id = #{id}
+    </delete>
+
+    <select id="selectAllCategory" resultType="com.jjq.bean.Category">
+      SELECT C.id, C.name, COUNT(A.id) articleCount FROM category AS C LEFT OUTER JOIN article AS A ON A.c_id = C.id WHERE C.u_id = #{userId} GROUP BY C.id
+    </select>
+
+    <select id="selectCategoryNameById" resultType="java.lang.String">
+      SELECT name FROM category WHERE id = #{id}
+    </select>
+
+    <select id="selectCategoryIdByName" resultType="java.lang.Integer">
+      SELECT id FROM category WHERE u_id = #{param1} AND name = #{param2}
+    </select>
+
+</mapper>

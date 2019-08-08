@@ -1,0 +1,32 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+div {
+    box-shadow: 1px 1px 1px 1px rgb(236, 236, 236);
+}
+
+div div {
+    float: left;
+}
+
+.bottom ul {
+    list-style: none;
+    width: 630px;
+    height: 74px;
+    font-weight: bold;
+    font-size: 18px;
+    margin-left: 38px;
+    margin-top: 27px;
+}
+
+.bottom ul li {
+    background-color: rgb(242, 242, 242);
+    width: 189px;
+    height: 74px;
+    float: left;
+    text-align: center;
+    line-height: 74px;
+    margin-right: 20px;
+}

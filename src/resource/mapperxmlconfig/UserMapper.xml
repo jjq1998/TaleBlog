@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jjq.mapper.UserMapper">
+
+    <insert id="insertUser">
+      INSERT INTO user (name, password, email, blogname) VALUES (#{name}, #{password}, #{email}, #{blogName})
+    </insert>
+
+    <update id="updatePassword">
+      UPDATE user SET password = #{param2} WHERE id = #{param1}
+    </update>
+
+    <update id="updateUser">
+      UPDATE user SET name = #{param2}, email = #{param3}, blogname = #{param4} WHERE id = #{param1}
+    </update>
+
+    <select id="selectUserByNameAndPassword" resultType="com.jjq.bean.User">
+      SELECT id, name, password, email, blogname FROM user WHERE name = #{param1} AND password = #{param2}
+    </select>
+
+    <select id="selectUserByName" resultType="java.lang.Boolean">
+      SELECT COUNT(*) FROM user WHERE name = #{name}
+    </select>
+
+</mapper>

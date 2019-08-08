@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jjq.mapper.LinkMapper">
+
+    <insert id="insertLink">
+      INSERT INTO link (name, url, u_id) VALUES (#{param2}, #{param3}, #{param1})
+    </insert>
+
+    <update id="updateLink">
+      UPDATE link SET name = #{param2}, url = #{param3} WHERE id = #{param1}
+    </update>
+
+    <delete id="deleteLink">
+      DELETE FROM link WHERE id = #{id}
+    </delete>
+
+    <select id="selectAllLink" resultType="com.jjq.bean.Link">
+      SELECT id, name, url FROM link WHERE u_id = #{userId}
+    </select>
+
+    <select id="selectAllLinkCount" resultType="java.lang.Integer">
+      SELECT COUNT(*) FROM link WHERE u_id = #{userId}
+    </select>
+
+</mapper>

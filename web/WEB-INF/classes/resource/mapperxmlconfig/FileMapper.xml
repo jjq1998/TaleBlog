@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jjq.mapper.FileMapper">
+
+    <insert id="insertFile">
+      INSERT INTO file (name, url, u_id) VALUES (#{param2}, #{param3}, #{param1})
+    </insert>
+
+    <delete id="deleteFile">
+      DELETE FROM file WHERE id = #{id}
+    </delete>
+
+    <select id="selectAllFiles" resultType="com.jjq.bean.File">
+      SELECT id, name, url FROM file WHERE u_id = #{userId}
+    </select>
+
+    <select id="selectFileById" resultType="com.jjq.bean.File">
+      SELECT id, name, url FROM file WHERE id = #{id}
+    </select>
+
+    <select id="selectAllFilesCount" resultType="java.lang.Integer">
+      SELECT COUNT(*) FROM file WHERE u_id = #{userId}
+    </select>
+
+</mapper>

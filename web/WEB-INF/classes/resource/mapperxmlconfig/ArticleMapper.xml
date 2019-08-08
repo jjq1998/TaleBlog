@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jjq.mapper.ArticleMapper">
+
+    <insert id="insertArticle">
+      INSERT INTO article (title, content, c_id, state) VALUES (#{param2}, #{param3}, #{param1}, #{param4})
+    </insert>
+
+    <update id="updateArticle">
+      UPDATE article SET title = #{param2}, content = #{param3}, c_id = #{param4}, state = #{param5} WHERE id = #{param1}
+    </update>
+
+    <update id="updateVisitCountById">
+      UPDATE article SET visitcount = visitcount + 1 WHERE id = #{id}
+    </update>
+
+    <delete id="deleteArticle">
+      DELETE FROM article WHERE id = #{id}
+    </delete>
+
+    <resultMap id="articleResult" type="Article">
+        <id property="id" column="article_id"/>
+        <result property="cid" column="article_category_id"/>
+        <result property="visitCount" column="article_visitcount"/>
+        <result property="title" column="article_title"/>
+        <result property="content" column="article_content"/>
+        <result property="state" column="article_state"/>
+        <result property="createTime" column="article_create_time"/>
+        <result property="categoryName" column="category_name"/>
+        <result property="userName" column="user_name"/>
+        <result property="messageCount" column="message_count"/>
+        <collection property="tags" ofType="Tag">
+            <id property="id" column="tag_id"/>
+            <result property="name" column="tag_name"/>
+        </collection>
+    </resultMap>
+
+    <select id="selectAllArticle" resultMap="articleResult">
+            SELECT a.id AS article_id, a.c_id AS article_category_id, a.visitcount AS article_visitcount,
+             a.title AS article_title, a.content AS article_content, a.state AS article_state,
+             a.create_time AS article_create_time, c.name AS category_name, u.name AS user_name,
+             t.id AS tag_id, t.name AS tag_name, COUNT(m.id) AS message_count
+      FROM article AS a
+      LEFT OUTER JOIN category AS c ON a.c_id = c.id
+	  LEFT OUTER JOIN user AS u ON c.u_id = u.id
+	  LEFT OUTER JOIN tag AS t ON a.id = t.a_id
+      LEFT OUTER JOIN message AS m ON m.a_id = a.id
+      GROUP BY a.id,t.name
+      ORDER BY a.id DESC;
+    </select>
+
+    <select id="selectAllArticleInCondition" resultMap="articleResult">
+        SELECT a.id AS article_id, a.c_id AS article_category_id, a.visitcount AS article_visitcount,
+        a.title AS article_title, a.content AS article_content, a.state AS article_state,
+        a.create_time AS article_create_time, c.name AS category_name, u.name AS user_name,
+        t.id AS tag_id, t.name AS tag_name, COUNT(m.id) AS message_count
+        FROM article AS a
+        LEFT OUTER JOIN category AS c ON a.c_id = c.id
+        LEFT OUTER JOIN user AS u ON c.u_id = u.id
+        LEFT OUTER JOIN tag AS t ON a.id = t.a_id
+        LEFT OUTER JOIN message AS m ON m.a_id = a.id
+        WHERE u.id = #{param1}
+        <if test="#{param2} != null">
+            AND a.title LIKE '%${param2}%'
+        </if>
+        GROUP BY a.id,t.name
+        ORDER BY a.id DESC;
+    </select>
+
+    <select id="selectAllArticleInPage" resultMap="articleResult">
+      SELECT a.id AS article_id, a.c_id AS article_category_id, a.visitcount AS article_visitcount,
+             a.title AS article_title, a.content AS article_content, a.state AS article_state,
+             a.create_time AS article_create_time, c.name AS category_name, u.name AS user_name,
+             t.id AS tag_id, t.name AS tag_name, COUNT(m.id) AS message_count
+      FROM article AS a
+      LEFT OUTER JOIN category AS c ON a.c_id = c.id
+	  LEFT OUTER JOIN user AS u ON c.u_id = u.id
+	  LEFT OUTER JOIN tag AS t ON a.id = t.a_id
+      LEFT OUTER JOIN message AS m ON m.a_id = a.id
+      WHERE u.id = #{param1}
+      GROUP BY a.id,t.name
+      ORDER BY a.id DESC
+      LIMIT #{articlePage.beginCount}, #{articlePage.pageCount}
+    </select>
+
+    <select id="selectAllArticleByCategoryId" resultMap="articleResult">
+      SELECT a.id AS article_id, a.c_id AS article_category_id, a.visitcount AS article_visitcount,
+             a.title AS article_title, a.content AS article_content, a.state AS article_state,
+             a.create_time AS article_create_time, c.name AS category_name, u.name AS user_name,
+             t.id AS tag_id, t.name AS tag_name, COUNT(m.id) AS message_count
+      FROM article AS a
+      LEFT OUTER JOIN category AS c ON a.c_id = c.id
+	  LEFT OUTER JOIN user AS u ON c.u_id = u.id
+	  LEFT OUTER JOIN tag AS t ON a.id = t.a_id
+      LEFT OUTER JOIN message AS m ON m.a_id = a.id
+      WHERE c.id = #{categoryId}
+      GROUP BY a.id,t.name
+      ORDER BY a.id DESC;
+    </select>
+
+    <select id="selectAllArticleCount" resultType="java.lang.Integer">
+      SELECT COUNT(*) FROM article AS a, category AS c, user AS u WHERE a.c_id = c.id AND c.u_id = u.id AND u.id = #{userId}
+    </select>
+
+    <select id="selectAllArticleByCategoryIdCount" resultType="java.lang.Integer">
+      SELECT COUNT(*) FROM article WHERE c_id = #{categoryId}
+    </select>
+
+    <select id="selectArticleById" resultMap="articleResult">
+      SELECT a.id AS article_id, a.c_id AS article_category_id, a.visitcount AS article_visitcount,
+             a.title AS article_title, a.content AS article_content, a.state AS article_state,
+             a.create_time AS article_create_time, c.name AS category_name, u.name AS user_name,
+             t.id AS tag_id, t.name AS tag_name, COUNT(m.id) AS message_count
+      FROM article AS a
+      LEFT OUTER JOIN category AS c ON a.c_id = c.id
+	  LEFT OUTER JOIN user AS u ON c.u_id = u.id
+	  LEFT OUTER JOIN tag AS t ON a.id = t.a_id
+      LEFT OUTER JOIN message AS m ON m.a_id = a.id
+      WHERE a.id = #{id}
+      GROUP BY a.id,t.name
+      ORDER BY a.id DESC;
+    </select>
+
+    <select id="selectAllArticleInUserId" resultMap="articleResult">
+        SELECT a.id AS article_id, a.c_id AS article_category_id, a.visitcount AS article_visitcount,
+             a.title AS article_title, a.content AS article_content, a.state AS article_state,
+             a.create_time AS article_create_time, c.name AS category_name, u.name AS user_name,
+             t.id AS tag_id, t.name AS tag_name, COUNT(m.id) AS message_count
+      FROM article AS a
+      LEFT OUTER JOIN category AS c ON a.c_id = c.id
+	  LEFT OUTER JOIN user AS u ON c.u_id = u.id
+	  LEFT OUTER JOIN tag AS t ON a.id = t.a_id
+      LEFT OUTER JOIN message AS m ON m.a_id = a.id
+      WHERE u.id = #{userId}
+      GROUP BY a.id,t.name
+      ORDER BY a.id DESC;
+    </select>
+
+    <select id="selectLastInsertArticleId" resultType="java.lang.Integer">
+        SELECT MAX(id) FROM article
+    </select>
+
+</mapper>

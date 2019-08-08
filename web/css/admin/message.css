@@ -1,0 +1,53 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+ul {
+    list-style: none;
+    width: 300px;
+    font-weight: bold;
+    font-size: 20px;
+    color: rgb(167, 177, 194);
+}
+
+li {
+    padding-left: 30px;
+    height: 70px;
+    line-height: 70px;
+}
+
+li:hover {
+    background-color: rgb(39, 44, 53);
+}
+
+a {
+    text-decoration: none;
+    color: rgb(167, 177, 194);
+}
+
+a:visited {
+    color: rgb(167, 177, 194);
+}
+
+table, table tr th, table tr td {
+    border: 2px solid #dddddd;
+}
+
+table {
+    border-color: #dddddd;
+    text-align: center;
+    border-collapse: collapse;
+    font-weight: bold;
+    color: #666666;
+    position: relative;
+    left: 160px;
+}
+
+th{
+    height: 30px;
+}
+
+td{
+    height: 40px;
+}
